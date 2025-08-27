@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supertoon Card Game</title>
+  <link rel="stylesheet" href="game1.css">
+</head>
+<body>
+  <div class="web">
+    <header class="top">
+      <h1 class="title">Random Card <span class="pill">SUPERTOON</span></h1>
+    </header>
+
+    <section class="board">
+      <div class="card-area">
+        <div class="deck">
+          <div class="playing-card" id="card" aria-label="การ์ดสุ่ม">
+            <div class="face back" id="back">
+              <div class="pattern">★</div>
+              <div class="cta">
+                <div class="tap">แตะการ์ดเพื่อสุ่มไพ่</div>
+                <div class="hint">ไพ่จากสำรับ 52 ใบ</div>
+              </div>
+            </div>
+            <div class="face front" id="front">
+              <span class="badge" id="qTag">ไพ่:</span>
+              <div class="q" id="qText">พร้อมยัง?!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="back-btn">
+      <a href="index.html">กลับหน้าแรก</a>
+    </div>
+
+    <footer class="foot">© 2025 "Wichayada Boonkurt" | All rights reserved</footer>
+  </div>
+
+  <script>
+    // สัญลักษณ์และหน้าไพ่
+    const SUITS = ["♠️", "♥️", "♦️", "♣️"];
+    const RANKS = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
+
+    // สร้างสำรับไพ่ 52 ใบ
+    const DECK52 = SUITS.flatMap(s => RANKS.map(r => ({ suit: s, rank: r })));
+
+    // helper function
+    const $ = (s) => document.querySelector(s);
+    const card = $("#card");
+    const qText = $("#qText");
+    const qTag = $("#qTag");
+
+    let deck = [...DECK52];  // กองไพ่ที่เหลือ
+
+    // สุ่มไพ่จากกอง
+    function randCard() {
+      if (deck.length === 0) deck = [...DECK52]; // รีเซ็ตถ้าไพ่หมด
+      const i = Math.floor(Math.random() * deck.length);
+      return deck.splice(i, 1)[0];
+    }
+
+    // แสดงไพ่ใหม่
+    function showNext() {
+      const { suit, rank } = randCard();
+
+      // reset animation กันบั๊ก
+      card.classList.remove("reflip");
+      void card.offsetWidth;
+
+      card.classList.add("reflip");
+
+      // เปลี่ยนข้อความตอนกลางทาง
+      setTimeout(() => {
+        qText.textContent = `${rank} ${suit}`;
+        qTag.textContent = "ไพ่:";
+        if (suit === "♥️" || suit === "♦️") {
+          qText.style.color = "#ff4d6d"; // ไพ่แดง
+        } else {
+          qText.style.color = "#e8eaf6"; // ไพ่ดำ
+        }
+      }, 250);
+    }
+
+    card.addEventListener("click", showNext);
+  </script>
+</body>
+</html>
