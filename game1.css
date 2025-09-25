@@ -137,19 +137,19 @@ body {
 }
 
 .q {
-  font-size:clamp(22px, 2.4vw, 34px);
-  line-height:1.45;
-  font-weight:700;
+  font-size: clamp(28px, 3vw, 42px); /* เดิม 22px → 34px */
+  line-height: 1.45;
+  font-weight: 700;
 }
 
 .badge {
-  align-self:flex-start;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.04);
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:12px;
-  color:var(--muted);
+  align-self: flex-start;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  padding: 8px 14px; /* ขยาย Padding นิดหน่อย */
+  border-radius: 999px;
+  font-size: 16px; /* เดิม 12px */
+  color: var(--muted);
 }
 
 .back-btn {
